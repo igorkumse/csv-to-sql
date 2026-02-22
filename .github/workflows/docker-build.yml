@@ -25,10 +25,10 @@ jobs:
       # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t csv-to-sql-csv-watcher:latest .
+          docker build -t csv-to-sql:latest .
 
       # 4️⃣ Push Docker image
       - name: Push Docker image
         run: |
-          docker tag csv-to-sql-csv-watcher:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
+          docker tag csv-to-sql:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest

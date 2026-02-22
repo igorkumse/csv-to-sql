@@ -20,12 +20,12 @@ jobs:
       - name: Set image tag
         id: set-image-tag
         run: |
-          echo "image-tag=csv-to-sql-csv-watcher:latest" >> $GITHUB_OUTPUT
+          echo "image-tag=csv-to-sql:latest" >> $GITHUB_OUTPUT
 
       # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t csv-to-sql-csv-watcher:latest .
+          docker build -t csv-to-sql:latest .
 
       # 4️⃣ Robust Sanity Test
       - name: Run Robust Sanity Test
@@ -41,7 +41,7 @@ jobs:
           docker run --rm \
             -v $PWD/test_input:/data/INPUT \
             -v $PWD/test_output:/data/OUTPUT \
-            csv-to-sql-csv-watcher:latest &
+            csv-to-sql:latest &
           # Počakaj 15 sekund, da se obdelajo vse vrstice
           sleep 15
 
@@ -92,5 +92,5 @@ jobs:
       # 3️⃣ Tag & Push Docker image
       - name: Tag & Push Docker image
         run: |
-          docker tag csv-to-sql-csv-watcher:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
+          docker tag csv-to-sql:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest

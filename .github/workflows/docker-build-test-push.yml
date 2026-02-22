@@ -26,7 +26,7 @@ jobs:
       # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t csv-to-sql-csv-watcher:latest .
+          docker build -t csv-to-sql:latest .
 
       # 4️⃣ Test Docker image (sanity check)
       - name: Test Docker image
@@ -36,7 +36,7 @@ jobs:
           docker run --rm \
             -v $PWD/test_input:/data/INPUT \
             -v $PWD/test_output:/data/OUTPUT \
-            csv-to-sql-csv-watcher:latest &
+            csv-to-sql:latest &
           # počakamo nekaj sekund, da program ustvari output
           sleep 10
           # preverimo, če je output datoteka ustvarjena
@@ -49,5 +49,5 @@ jobs:
       # 5️⃣ Tag & Push Docker image na GHCR
       - name: Push Docker image
         run: |
-          docker tag csv-to-sql-csv-watcher:latest ghcr.io/${{ github.repository_owner }}/csv-to-sql-csv-watcher:latest
-          docker push ghcr.io/${{ github.repository_owner }}/csv-to-sql-csv-watcher:latest
+          docker tag csv-to-sql:latest ghcr.io/${{ github.repository_owner }}/csv-to-sql:latest
+          docker push ghcr.io/${{ github.repository_owner }}/csv-to-sql:latest
