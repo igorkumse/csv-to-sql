@@ -49,5 +49,5 @@ jobs:
       # 5️⃣ Tag & Push Docker image na GHCR
       - name: Push Docker image
         run: |
-          docker tag csv-to-sql:latest ghcr.io/${{ github.repository_owner }}/csv-to-sql:latest
-          docker push ghcr.io/${{ github.repository_owner }}/csv-to-sql:latest
+          docker tag csv-to-sql:latest ghcr.io/igorkumse/csv-to-sql:latest
+          docker push ghcr.io/igorkumse/csv-to-sql:latest

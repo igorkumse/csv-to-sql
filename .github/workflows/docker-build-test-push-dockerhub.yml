@@ -92,5 +92,5 @@ jobs:
       # 3️⃣ Tag & Push Docker image
       - name: Tag & Push Docker image
         run: |
-          docker tag csv-to-sql:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql:latest
+          docker tag csv-to-sql:latest ghcr.io/igorkumse/csv-to-sql:latest
+          docker push ghcr.io/igorkumse/csv-to-sql:latest
