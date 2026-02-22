@@ -40,7 +40,7 @@ jobs:
           # počakamo nekaj sekund, da program ustvari output
           sleep 10
           # preverimo, če je output datoteka ustvarjena
-          if [ ! -f test_output/test-INSERT.sql ]; then
+          if [ ! -f test_output/test.sql ]; then
             echo "Sanity test failed: output file missing"
             exit 1
           fi
