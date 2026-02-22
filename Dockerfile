@@ -1,14 +1,10 @@
-# Uporabimo uradno Python sliko
-FROM python:3.11-slim
+FROM python:3.12.10
 
-# Nastavimo delovni direktorij v containerju
 WORKDIR /app
 
-# Kopiramo vse datoteke v container
-COPY . .
+COPY app/ app/
+COPY requirements.txt .
 
-# (ni odvisnosti, ampak pustimo za prihodnost)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Privzeti ukaz ob zagonu containerja
-CMD ["python", "main.py"]
+CMD ["python", "app/main.py"]

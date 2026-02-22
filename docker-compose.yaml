@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  csv-watcher:
+    build: .
+    container_name: csv_watcher
+    volumes:
+      - ./INPUT:/data/INPUT
+      - ./OUTPUT:/data/OUTPUT
+      - ./PROCESSED:/data/PROCESSED
+    restart: unless-stopped
