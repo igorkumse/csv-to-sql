@@ -51,3 +51,4 @@ jobs:
         run: |
           docker tag csv-to-sql:latest ghcr.io/igorkumse/csv-to-sql:latest
           docker push ghcr.io/igorkumse/csv-to-sql:latest
+          
