@@ -1,0 +1,34 @@
+name: Docker Build & Push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout kode
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Prijava v Docker Hub (če želiš push)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 3️⃣ Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t csv-to-sql-csv-watcher:latest .
+
+      # 4️⃣ Push Docker image
+      - name: Push Docker image
+        run: |
+          docker tag csv-to-sql-csv-watcher:latest ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/csv-to-sql-csv-watcher:latest
