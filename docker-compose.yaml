@@ -8,4 +8,6 @@ services:
       - ./INPUT:/data/INPUT
       - ./OUTPUT:/data/OUTPUT
       - ./PROCESSED:/data/PROCESSED
+      - ./ERROR:/data/ERROR
+      - ./logs:/data/logs
     restart: unless-stopped
