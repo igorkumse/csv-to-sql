@@ -1,0 +1,53 @@
+name: Docker Build, Test & Push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-test-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout kode
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Log in to GitHub Container Registry
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      # 3️⃣ Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t csv-to-sql-csv-watcher:latest .
+
+      # 4️⃣ Test Docker image (sanity check)
+      - name: Test Docker image
+        run: |
+          mkdir -p test_input test_output
+          echo "0210012341000000000123456720210012341000000000123456711" > test_input/test.csv
+          docker run --rm \
+            -v $PWD/test_input:/data/INPUT \
+            -v $PWD/test_output:/data/OUTPUT \
+            csv-to-sql-csv-watcher:latest &
+          # počakamo nekaj sekund, da program ustvari output
+          sleep 10
+          # preverimo, če je output datoteka ustvarjena
+          if [ ! -f test_output/test_FIXED-INSERT.sql ]; then
+            echo "Sanity test failed: output file missing"
+            exit 1
+          fi
+          echo "Sanity test passed"
+
+      # 5️⃣ Tag & Push Docker image na GHCR
+      - name: Push Docker image
+        run: |
+          docker tag csv-to-sql-csv-watcher:latest ghcr.io/${{ github.repository_owner }}/csv-to-sql-csv-watcher:latest
+          docker push ghcr.io/${{ github.repository_owner }}/csv-to-sql-csv-watcher:latest
