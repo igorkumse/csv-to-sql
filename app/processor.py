@@ -84,6 +84,7 @@ def process_fixed_width_file(file_path):
              open(update_file, 'w', encoding='utf-8') as wf_update:
 
             for line in rf:
+                logger.info(f"Processing line: len={len(line)} | fin_inst_in={fin_inst_in} | org_enota_in={org_enota_in} | ...")
                 krediti = line[0]
                 fin_inst_in = line[0:2].strip()
                 if krediti.lower() == 'd' and line[2:5] == '   ':
@@ -92,14 +93,13 @@ def process_fixed_width_file(file_path):
                     org_enota_in = line[2:5].strip()
 
                 aplikacija_in = line[5:9].strip()
-                kom_stevilka_in = f"'{line[9:25].strip()}'"
+                kom_stevilka_in = line[9:25].strip()
                 apl_domicil_in = line[25:26].strip()
                 status_in = line[26:27].strip()
-
                 fin_inst_out = line[27:29].strip()
                 org_enota_out = line[29:32].strip()
                 aplikacija_out = line[32:36].strip()
-                kom_stevilka_out = f"'{line[36:52].strip()}'"
+                kom_stevilka_out = line[36:52].strip()
                 apl_domicil_out = line[52:53].strip()
                 status_out = line[53:54].strip()
 
